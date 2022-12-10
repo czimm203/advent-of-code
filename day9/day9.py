@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 from dataclasses import dataclass, field
-from pprint import pprint
 from typing import Optional
 
 @dataclass
@@ -109,6 +108,7 @@ if __name__ == '__main__':
         input = f.read().strip()
 
 
+    ## type ignore for pyright. Probably messed up type hints but tail shouldn't be none after init
     tk = Rope(2)
     for i in test1.split("\n"):
         tk.head.move(i)
@@ -126,8 +126,8 @@ if __name__ == '__main__':
         tk.head.move(i)
     print(len(tk.tail.path)) #type: ignore
     
-    # tk = Rope(10)
-    # for i in input.split("\n"):
-    #     tk.head.move(i)
-    # print(len(tk.tail.path))  #type: ignore
+    tk = Rope(10)
+    for i in input.split("\n"):
+        tk.head.move(i)
+    print(len(tk.tail.path))  #type: ignore
 
