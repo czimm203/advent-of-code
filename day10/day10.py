@@ -1,9 +1,6 @@
 #!/Library/Frameworks/Python.framework/Versions/3.11/bin/python3.11
 
-from types import EllipsisType
 
-
-SCREEN = "\n".join("."*40 for _ in range(6))
 class CRT:
     def __init__(self) -> None:
         self.reg = 1
