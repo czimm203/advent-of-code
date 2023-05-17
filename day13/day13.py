@@ -3,7 +3,7 @@
 import json
 
 def is_correct(l, r):
-    # print(l,r)
+    print(l,r, "\n",sep="\n")
     match l, r:
         case int(l), int(r):
             if l < r:
@@ -14,63 +14,74 @@ def is_correct(l, r):
             for j,i in zip(l,r):
                 out = is_correct(j,i)
                 if out != None:
-                    return is_correct(j,i)
-                
-            if len(l) > len(r):
-                return(False)
-            elif len(l) < len(r):
-                return(True)
+                    return out
+                        
+            if len(l) < len(r):
+                return True
+            elif len(l) > len(r):
+                return False
+
         case [list(l), int(r)] | [int(l), list(r)]:
             if isinstance(l,list):
                 if len(l) == 0:
                     return True
-                if isinstance(l[0], list):
-                    if len(l[0]) != 0:
-                        return is_correct(l[0],r)
-                    else:
-                        return True
-                if l[0] < r:
-                    return True
-                elif l[0] > r:
-                    return False
-            else:
+                for item in l:
+                    if isinstance(item, list):
+                        if len(item) != 0:
+                            return is_correct(item,r)
+                        else:
+                            return True
+                    elif isinstance(item,int):
+                        if item < r: #pyright: ignore
+                            return True
+                        elif item > r: #pyright: ignore
+                            return False
+                        else:
+                            break
+
+            elif isinstance(r,list):
                 if len(r) == 0:
                     return False
-                if isinstance(r[0], list):
-                    if len(r[0]) != 0:
-                        return is_correct(l,r[0])
-                    else:
-                        return False
-                if l < r[0]: #pyright: ignore
-                        return True
-                elif l > r[0]: #pyright: ignore
-                        return False
+                for item in r:
+                    if isinstance(item, list):
+                        if len(item) != 0:
+                            return is_correct(l,item)
+                        else:
+                            return False
+                    elif isinstance(item, int):
+                        if l < item:
+                                return True
+                        elif l > item:
+                                return False
+                        else:   
+                            break
     return None
 
 
 def part1(data: str):
     lines = data.split("\n\n")
-    # thing = lines[5].split("\n")
-    # l = json.loads(thing[0])
-    # r = json.loads(thing[1])
-    # print(is_correct(l,r))
-    arr = []
+    thing = 0
     for i,line in enumerate(lines):
         split = line.split("\n")
         l = json.loads(split[0])
         r = json.loads(split[1])
         correct = is_correct(l,r)
         if correct:
-            arr.append(i+1)
-    print(arr)
-    print(sum(arr))
+            print(l,r,i+1,"\n", sep="\n")
+            # print("aah")
+            # arr.append(i+1)
+            thing += i+1
+
+    print(thing)
+    # arr.clear()
 
 if __name__ == '__main__':
     with open('./test1.txt') as f:
         test = f.read().strip()
     with open('./input.txt') as f:
         input = f.read().strip()
+    with open('./me.txt') as f:
+        me = f.read().strip()
     
-    part1(test)
-    part1(input)
-        
+    part1(me)
+    # part1(input)
