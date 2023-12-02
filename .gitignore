@@ -1,4 +1,7 @@
-*/out.txt
-*/input.txt
-*/test*.txt
+**/out.txt
+**/input.txt
+**/data.txt
+**/**/aoc
+**/test*.txt
+**/test.txt
 **/*cache
